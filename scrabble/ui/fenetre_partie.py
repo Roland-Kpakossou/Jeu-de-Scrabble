@@ -122,6 +122,11 @@ class FenetrePartie(Tk):
         Met à jour les affichages du joueur actif et des scores des joueurs dans les labels correspondants.
         """
         # TODO
+        self.label_joueur_actif["text"] = "Joueur Actif: " + self.partie.joueur_actif.nom
+        scores_text = ""
+        for joueur in self.partie.joueurs:
+            scores_text += joueur.nom + ": " + str(joueur.score) + "\n"
+        self.label_scores_joueurs["text"] = scores_text
 
     def gerer_clic_bouton_melanger_jetons_chevalet(self):
         """
@@ -141,6 +146,9 @@ class FenetrePartie(Tk):
         Annule les déplacements en attente et passe au joueur suivant.
         """
         # TODO
+        self.annuler_tous_les_deplacements_en_attente()
+        self.actualiser_statut_jeu()
+        self.passer_au_joueur_suivant()
 
     def gerer_clic_bouton_jouer_un_tour(self):
         """
@@ -155,6 +163,7 @@ class FenetrePartie(Tk):
             messagebox.showinfo("Bravo!", message, parent=self)
             self.confirmer_tous_les_deplacements_effectues()
             # TODO
+            self.passer_au_joueur_suivant()
         else:
             messagebox.showerror("Oups!", message, parent=self)
             self.annuler_tous_les_deplacements_en_attente()
@@ -203,6 +212,7 @@ class FenetrePartie(Tk):
             int: L'index du jeton dans le chevalet basé sur la position du clic.
         """
         # TODO
+        return event.x // self.canvas_chevalet.n_pixels_par_case
 
     def gerer_selection_jeton_chevalet(self, emplacement_jeton_selectionne):
         """
@@ -229,12 +239,31 @@ class FenetrePartie(Tk):
             event (tkinter.Event): L'évènement ayant causé l'appel de la méthode.
         """
         # TODO
+        x = event.x
+        y = event.y
+        position_plateau = self.canvas_plateau.obtenir_position_case_clic(x, y)
+        if position_plateau:
+            ligne, colonne = position_plateau.ligne, position_plateau.colonne
+            success, message = self.partie.placer_jeton(
+                self.partie.joueur_actif,
+                self.emplacement_jeton_selectionne_chevalet,
+                Position(ligne, colonne),
+            )
+            if success:
+                messagebox.showinfo("Succès!", message, parent=self)
+                self.confirmer_tous_les_deplacements_effectues()
+                self.passer_au_joueur_suivant()
+            else:
+                messagebox.showerror("Erreur!", message, parent=self)
+                self.annuler_tous_les_deplacements_en_attente()
 
     def passer_au_joueur_suivant(self):
         """
         Passe le contrôle au joueur suivant, met à jour l'affichage du joueur actif et du chevalet.
         """
         # TODO
+        self.actualiser_statut_jeu()
+        self.actualiser_chevalet()
 
     def actualiser_chevalet(self):
         """

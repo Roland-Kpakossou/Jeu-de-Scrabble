@@ -129,3 +129,4 @@ class CanvasPlateau(Canvas):
             text=texte_case,
             tags="case",
         )
+
