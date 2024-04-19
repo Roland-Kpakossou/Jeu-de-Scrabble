@@ -1,0 +1,130 @@
+Numéro d'équipe :
+Lien vers le dépôt GitHub PRIVÉ de votre TP :
+
+Étudiant 1 :
+    - Nom complet :
+    - Numéro de dossier (NI) :
+    - Estimation du temps de réalisation :
+
+Étudiant 2:
+    - Nom complet:
+    - Numéro de dossier (NI):
+    - Estimation du temps de réalisation:
+
+
+Étape 1: Méthodes et tests à compléter (__/55)
+----------------------------------------------
+
+/3 : scrabble.jeton.Jeton.__init__
+     Commentaires :
+
+/2 : scrabble.joueur.chevalet.Chevalet.nombre_emplacements_vides
+     Commentaires :
+
+/1 : scrabble.joueur.chevalet.Chevalet.est_plein
+     Commentaires :
+
+/1 : scrabble.joueur.chevalet.Chevalet.emplacement_est_valide
+     Commentaires :
+
+/3 : scrabble.joueur.chevalet.Chevalet.ajouter_jeton
+     Commentaires :
+
+/3 : scrabble.joueur.chevalet.Chevalet.obtenir_jeton
+     Commentaires :
+
+/3 : scrabble.joueur.chevalet.Chevalet.retirer_jeton
+     Commentaires :
+
+/3 : scrabble.joueur.joueur.Joueur.__init__
+     Commentaires :
+
+/2 : scrabble.joueur.joueur.Joueur.nombre_de_nouveaux_jetons_a_tirer
+     Commentaires :
+
+/2 : scrabble.joueur.joueur.Joueur.peut_tirer_de_nouveaux_jetons
+     Commentaires :
+
+/4 : scrabble.common.position.Position.obtenir_quatre_positions_adjacentes
+     Commentaires :
+
+/2 : Tests unitaires pour la méthode obtenir_quatre_positions_adjacentes de
+     classe scrabble.common.position.Position
+     Commentaires :
+
+/4 : scrabble.plateau.case.Case.__init__
+     Commentaires :
+
+/3 : scrabble.plateau.case.Case.retirer_jeton
+     Commentaires :
+
+/3 : Tests unitaires pour la classe scrabble.plateau.case.Case
+     Commentaires :
+
+/2 : scrabble.plateau.plateau.Plateau.position_est_valide
+     Commentaires :
+
+/2 : scrabble.plateau.plateau.Plateau.est_vide
+     Commentaires :
+
+/2 : scrabble.plateau.plateau.Plateau.ajouter_jeton
+     Commentaires :
+
+/2 : scrabble.plateau.plateau.Plateau.retirer_jeton
+     Commentaires :
+
+/1 : scrabble.partie.Partie.mot_permis
+     Commentaires :
+
+/2 : scrabble.partie.Partie.determiner_gagnant
+     Commentaires :
+
+/5 : scrabble.partie.Partie.jouer_un_tour
+    Commentaires :
+
+
+Étape 2: Fonctionnalités Interface Graphique (__/45)
+----------------------------------------------------
+
+/5 : Le plateau est bien dessiné en tout temps
+     Commentaires :
+
+/5 : Les informations de partie sont affichées (scores des joueurs et nom du joueur actif)
+     Commentaires :
+
+/2.5 : Le joueur actif peut passer son tour via un bouton
+     Commentaires :
+
+/5 : Le tour des joueurs est alterné correctement (le joueur actif voit son chevalet)
+     Commentaires :
+
+/5 : Après un tour, le chevalet est rempli en tirant de nouveaux jetons
+     Commentaires :
+
+/5: La fin de la partie est détectée et affichée
+     Commentaires :
+
+/2.5 : On peut démarrer une nouvelle partie via un bouton
+     Commentaires :
+
+/2.5 : Qualité des messages d'erreur affichés à l'utilisateur
+     Commentaires :
+
+/7.5 : Création et gestion d'exceptions personnalisées
+     Commentaires :
+
+/5 : Qualité du code (noms des variables, style, docstrings)
+     Commentaires :
+
+
+
+Pénalités pour non-respect des consignes
+----------------------------------------
+
+
+
+Autres commentaires du correcteur
+---------------------------------
+
+
+Total: /100
