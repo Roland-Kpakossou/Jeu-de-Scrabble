@@ -3,19 +3,54 @@ from scrabble.jeton import Jeton
 
 
 def tests_initialisation_case_sans_bonus():
-    # TODO
+    #### TODO
+    # Création d'une case sans bonus
+    case = Case()
+    # Vérification des attributs initiaux
+    assert case.multiplicateur == 1, "Le multiplicateur devrait être 1 par défaut"
+    assert case.type_bonus is None, "Le type de bonus devrait être None par défaut"
+    assert case.est_vide(), "La case devrait être initialement vide"
+    assert case.jeton_occupant is None, "Le jeton occupant devrait être None à l'initialisation"
+
     assert False, "Erreur: Compléter tests_initialisation_case_sans_bonus"
 
 
 def tests_initialisation_avec_des_parametres_incorrects():
-    # TODO
+    #### TODO
+    # Test d'initialisation avec un multiplicateur incorrect
+    try:
+        case = Case(multiplicateur=5)
+    except AssertionError:
+        pass  # On attend une erreur AssertionError
+
+    # Test d'initialisation avec un type de bonus incorrect
+    try:
+        case = Case(type_bonus="A")
+    except AssertionError:
+        pass  # On attend une erreur AssertionError
+
     assert (
         False
     ), "Erreur: Compléter tests_initialisation_avec_des_parametres_incorrects"
 
 
 def tests_placement_et_de_retrait_de_jeton():
-    # TODO
+    #### TODO
+    # Création d'une case
+    case = Case()
+    # Création d'un jeton
+    jeton = Jeton("A", 1)
+
+    # Test du placement d'un jeton sur la case
+    case.placer_jeton(jeton)
+    assert not case.est_vide(), "La case devrait être occupée après avoir placé un jeton"
+    assert case.jeton_occupant == jeton, "Le jeton placé devrait être celui que nous avons inséré"
+
+    # Test du retrait du jeton de la case
+    jeton_retire = case.retirer_jeton()
+    assert jeton_retire == jeton, "Le jeton retiré devrait être le même que celui placé précédemment"
+    assert case.est_vide(), "La case devrait être vide après avoir retiré le jeton"
+    assert case.jeton_occupant is None, "Le jeton retiré devrait être None"
     assert False, "Erreur: Compléter tests_placement_et_de_retrait_de_jeton"
 
 

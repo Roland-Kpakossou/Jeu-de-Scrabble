@@ -36,7 +36,19 @@ def tests_hachages_positions():
 
 def tests_positions_adjacentes():
     # TODO
-    assert False, "Erreur: Compléter tests_positions_adjacentes"
+    position_test = Position(3, 3)
+
+    # Appel de la méthode obtenir_quatre_positions_adjacentes()
+    positions_adjacentes = position_test.obtenir_quatre_positions_adjacentes()
+
+    # Vérification des positions adjacentes attendues
+    assert len(positions_adjacentes) == 4
+    assert Position(3, 4) in positions_adjacentes  # Droite
+    assert Position(3, 2) in positions_adjacentes  # Gauche
+    assert Position(4, 3) in positions_adjacentes  # Bas
+    assert Position(2, 3) in positions_adjacentes  # Haut
+
+    print("Tests positions adjacentes réussis !")
 
 
 def tests_representation_position():

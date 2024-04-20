@@ -7,9 +7,9 @@ Lien vers le dépôt GitHub PRIVÉ de votre TP :
     - Estimation du temps de réalisation :
 
 Étudiant 2:
-    - Nom complet:
+    - Nom complet: Emmanuella iris andréa Lehe
     - Numéro de dossier (NI):
-    - Estimation du temps de réalisation:
+    - Estimation du temps de réalisation: 3 jours
 
 
 Étape 1: Méthodes et tests à compléter (__/55)
