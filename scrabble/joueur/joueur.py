@@ -19,12 +19,11 @@ class Joueur:
             AssertionError: Si le nom est vide ou ne contient que des espaces.
         """
         # On valide les pré-conditions
+        #### TODO
         assert nom != "" and not nom.isspace(), "Le nom doit être non vide."
         self.nom = nom
         self.score = 0
         self.chevalet = Chevalet()  # Initialisation du chevalet
-
-        # TODO
 
     def nombre_de_nouveaux_jetons_a_tirer(self):
         """Calcule le nombre de nouveaux jetons qu'un joueur doit tirer pour remplir son chevalet.
@@ -32,8 +31,8 @@ class Joueur:
         Returns:
             int: Le nombre d'emplacements vides dans le chevalet du joueur.
         """
+        #### TODO
         return self.chevalet.nombre_emplacements_vides()
-        # TODO
 
     def peut_tirer_de_nouveaux_jetons(self):
         """Détermine si le joueur peut tirer de nouveaux jetons pour son chevalet.
@@ -41,9 +40,8 @@ class Joueur:
         Returns:
             bool: True si le chevalet du joueur n'est pas plein, False sinon.
         """
+        #### TODO
         return not self.chevalet.est_plein()
-
-        # TODO
 
     def __repr__(self):
         """Méthode spéciale indiquant à Python comment représenter une instance de Joueur par une chaîne de

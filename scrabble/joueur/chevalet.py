@@ -30,8 +30,8 @@ class Chevalet:
         Returns:
             int: Le nombre d'emplacements vides.
         """
+        #### TODO
         return self.emplacements.count(None)
-        # TODO
 
     def est_plein(self):
         """Vérifie si le chevalet est plein, c'est-à-dire s'il n'y a plus d'emplacements vides pour des jetons supplémentaires.
@@ -39,8 +39,8 @@ class Chevalet:
         Returns:
             bool: True si le chevalet est plein, False sinon.
         """
+        #### TODO
         return self.nombre_emplacements_vides() == 0
-        # TODO
 
     def emplacement_est_valide(self, index_emplacement):
         """Vérifie si un emplacement donné est valide (dans les limites de la taille du chevalet).
@@ -51,8 +51,8 @@ class Chevalet:
         Returns:
             bool: True si l'emplacement est valide, False sinon.
         """
+        #### TODO
         return 0 <= index_emplacement <= self.taille()
-        # TODO
 
     def emplacement_est_vide(self, index_emplacement):
         """Vérifie si un emplacement donné est vide.
@@ -77,6 +77,7 @@ class Chevalet:
             AssertionError: Si l'emplacement spécifié est invalide ou déjà occupé.
         """
         # Vérifie d'abord si l'emplacement spécifié est valide
+        #### TODO
         if not self.emplacement_est_valide(index_emplacement):
             raise AssertionError("L'emplacement spécifié est invalide.")
 
@@ -88,7 +89,6 @@ class Chevalet:
         jeton = self.emplacements[index_emplacement]
         self.emplacements[index_emplacement] = None
         return jeton
-        # TODO
 
     def obtenir_jeton(self, index_emplacement):
         """Obtient le jeton d'un emplacement spécifique.
@@ -102,9 +102,9 @@ class Chevalet:
         Raises:
             AssertionError: Si l'emplacement spécifié est invalide ou vide.
         """
+        #### TODO
         jeton = self.emplacements[index_emplacement]
         return jeton
-        # TODO
 
     def retirer_jeton(self, index_emplacement):
         """Retire et renvoie le jeton d'un emplacement spécifique.
@@ -118,11 +118,10 @@ class Chevalet:
         Raises:
             AssertionError: Si l'emplacement spécifié est invalide ou vide.
         """
+        #### TODO
         jeton = self.obtenir_jeton(index_emplacement)
         self.emplacements[index_emplacement] = None
         return jeton
-
-        # TODO
 
     def melanger_jetons(self):
         """Mélange les jetons présents sur le chevalet, changeant leur ordre de manière aléatoire."""

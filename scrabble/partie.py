@@ -136,7 +136,13 @@ class Partie:
         Returns:
             bool: True si le mot est dans le dictionnaire, False sinon.
         """
-        # TODO
+        #### TODO
+        with open("dictionaire_français.txt", "r") as fichier:
+            contenu_fichier = fichier.read()
+            if mot in contenu_fichier:
+                return True
+            else:
+                return False
 
     def determiner_gagnant(self):
         """
@@ -147,7 +153,19 @@ class Partie:
 
         Note: Si plusieurs sont à égalité, on en retourne un seul parmi ceux-ci.
         """
-        # TODO
+        #### TODO
+        # Initialise le joueur avec le score le plus élevé au premier joueur
+        joueur_gagnant = self.joueurs[0]
+
+        # Parcourt tous les joueurs pour trouver celui avec le score le plus élevé
+        for joueur in self.joueurs:
+            # Si le score du joueur actuel est plus élevé que celui du joueur gagnant actuel
+            if joueur.score > joueur_gagnant.score:
+                # Met à jour le joueur gagnant
+                joueur_gagnant = joueur
+
+        # Retourne le joueur avec le score le plus élevé
+        return joueur_gagnant
 
     def est_terminee(self):
         """
@@ -249,4 +267,26 @@ class Partie:
         """
         liste_jetons, liste_positions = self.plateau.consulter_jetons_en_jeu()
 
-        # TODO
+        # Vérifie si la partie est terminée
+        if self.est_terminee():
+            return False, "La partie est terminée."
+
+        # Vérifie si le joueur actif peut jouer un tour
+        if not self.joueur_actif.chevalet.est_vide():
+            return False, "Le joueur n'a plus de jetons pour jouer."
+
+        # Le joueur place ses jetons sur le plateau
+        placement_reussi = self.plateau.placer_jetons(self.joueur_actif.chevalet.jetons)
+        if not placement_reussi:
+            return False, "Placement de jetons invalide."
+
+        # Si le placement est réussi, le score du joueur est mis à jour
+        self.joueur_actif.score += self.plateau.trouver_mots_et_calculer_points
+
+        # Passe au joueur suivant
+        self.passer_au_joueur_suivant()
+
+        return True, "Tour terminé avec succès."
+
+    def placer_jeton(self, joueur_actif, emplacement_jeton_selectionne_chevalet, param):
+        pass

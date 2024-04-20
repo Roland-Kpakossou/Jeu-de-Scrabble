@@ -121,7 +121,7 @@ class FenetrePartie(Tk):
         """
         Met à jour les affichages du joueur actif et des scores des joueurs dans les labels correspondants.
         """
-        # TODO
+        #### TODO
         self.label_joueur_actif["text"] = "Joueur Actif: " + self.partie.joueur_actif.nom
         scores_text = ""
         for joueur in self.partie.joueurs:
@@ -162,7 +162,7 @@ class FenetrePartie(Tk):
         if success:
             messagebox.showinfo("Bravo!", message, parent=self)
             self.confirmer_tous_les_deplacements_effectues()
-            # TODO
+            #### TODO
             self.passer_au_joueur_suivant()
         else:
             messagebox.showerror("Oups!", message, parent=self)
@@ -211,7 +211,7 @@ class FenetrePartie(Tk):
         Returns:
             int: L'index du jeton dans le chevalet basé sur la position du clic.
         """
-        # TODO
+        #### TODO
         return event.x // self.canvas_chevalet.n_pixels_par_case
 
     def gerer_selection_jeton_chevalet(self, emplacement_jeton_selectionne):
@@ -238,7 +238,7 @@ class FenetrePartie(Tk):
         Args:
             event (tkinter.Event): L'évènement ayant causé l'appel de la méthode.
         """
-        # TODO
+        #### TODO
         x = event.x
         y = event.y
         position_plateau = self.canvas_plateau.obtenir_position_case_clic(x, y)
@@ -261,7 +261,7 @@ class FenetrePartie(Tk):
         """
         Passe le contrôle au joueur suivant, met à jour l'affichage du joueur actif et du chevalet.
         """
-        # TODO
+        #### TODO
         self.actualiser_statut_jeu()
         self.actualiser_chevalet()
 

@@ -31,13 +31,13 @@ class Position:
         Returns:
             list[Position]: Une liste contenant les positions adjacentes.
         """
+        #### TODO
         return [
             Position(self.ligne, self.colonne + 1),  # Droite
             Position(self.ligne, self.colonne - 1),  # Gauche
             Position(self.ligne + 1, self.colonne),  # Bas
             Position(self.ligne - 1, self.colonne)  # Haut
          ]
-        # TODO
 
     def __eq__(self, autre_position):
         """Méthode spéciale indiquant à Python comment vérifier si deux positions sont égales. On compare simplement

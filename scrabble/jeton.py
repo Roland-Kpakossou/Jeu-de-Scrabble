@@ -22,9 +22,10 @@ class Jeton:
         Raises:
             AssertionError: Si la lettre n'est pas une lettre majuscule ou si la valeur n'est pas dans l'intervalle autorisé.
         """
+        #### TODO
         self.lettre = lettre
         self.valeur = valeur
-        # TODO
+
 
     def __repr__(self):
         """Méthode spéciale indiquant à Python comment représenter une instance de Jeton par une chaîne de
