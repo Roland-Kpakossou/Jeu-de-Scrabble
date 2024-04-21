@@ -18,9 +18,10 @@ class Joueur:
         Raises:
             AssertionError: Si le nom est vide ou ne contient que des espaces.
         """
+        # TODO
         # On valide les pré-conditions
-        #### TODO
-        assert nom != "" and not nom.isspace(), "Le nom doit être non vide."
+        if not nom or nom.isspace():
+            raise AssertionError("Le nom doit être non vide et ne pas contenir que des espaces.")
         self.nom = nom
         self.score = 0
         self.chevalet = Chevalet()  # Initialisation du chevalet
@@ -31,7 +32,7 @@ class Joueur:
         Returns:
             int: Le nombre d'emplacements vides dans le chevalet du joueur.
         """
-        #### TODO
+        # TODO
         return self.chevalet.nombre_emplacements_vides()
 
     def peut_tirer_de_nouveaux_jetons(self):
@@ -40,7 +41,7 @@ class Joueur:
         Returns:
             bool: True si le chevalet du joueur n'est pas plein, False sinon.
         """
-        #### TODO
+        # TODO
         return not self.chevalet.est_plein()
 
     def __repr__(self):

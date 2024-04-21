@@ -100,7 +100,7 @@ class Plateau:
         Returns:
             bool: True si la position est dans les limites du plateau, False sinon.
         """
-        #### TODO
+        # TODO
         if 0 <= position.ligne < self.n_lignes and 0 <= position.colonne < self.n_colonnes:
             return True
         else:
@@ -123,7 +123,7 @@ class Plateau:
         Returns:
             bool: True si le plateau est entièrement vide, False sinon.
         """
-        #### TODO
+        # TODO
         for position in self.cases:
             if not self.case_est_vide(position):
                 return False
@@ -140,7 +140,7 @@ class Plateau:
         Returns:
             bool: True si le jeton a été placé avec succès; False sinon (si la case est déjà occupée).
         """
-        #### TODO
+        # TODO
         if self.case_est_vide(position):
             self.cases[position].placer_jeton(jeton)
             return True
@@ -156,7 +156,7 @@ class Plateau:
         Returns:
              Jeton: Le jeton retiré de la position spécifiée, ou None si la case est vide.
         """
-        #### TODO
+        # TODO
         if self.position_est_valide(position):
             # Vérifie si la case à la position donnée contient un jeton
             if not self.case_est_vide(position):

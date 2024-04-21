@@ -3,7 +3,7 @@ from scrabble.jeton import Jeton
 
 
 def tests_initialisation_case_sans_bonus():
-    #### TODO
+    # TODO
     # Création d'une case sans bonus
     case = Case()
     # Vérification des attributs initiaux
@@ -16,7 +16,7 @@ def tests_initialisation_case_sans_bonus():
 
 
 def tests_initialisation_avec_des_parametres_incorrects():
-    #### TODO
+    # TODO
     # Test d'initialisation avec un multiplicateur incorrect
     try:
         case = Case(multiplicateur=5)
@@ -35,7 +35,7 @@ def tests_initialisation_avec_des_parametres_incorrects():
 
 
 def tests_placement_et_de_retrait_de_jeton():
-    #### TODO
+    # TODO
     # Création d'une case
     case = Case()
     # Création d'un jeton

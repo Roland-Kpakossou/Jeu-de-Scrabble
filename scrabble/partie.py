@@ -1,6 +1,5 @@
 import random
 from pathlib import Path
-
 from scrabble.joueur import Joueur
 from scrabble.plateau import Plateau
 from scrabble.jeton import Jeton
@@ -136,10 +135,9 @@ class Partie:
         Returns:
             bool: True si le mot est dans le dictionnaire, False sinon.
         """
-        #### TODO
-        with open("dictionaire_français.txt", "r") as fichier:
-            contenu_fichier = fichier.read()
-            if mot in contenu_fichier:
+        # TODO
+        with open("dictionnaire_francais.txt", "r") as fichier:
+            if mot in fichier.read():
                 return True
             else:
                 return False
@@ -153,7 +151,7 @@ class Partie:
 
         Note: Si plusieurs sont à égalité, on en retourne un seul parmi ceux-ci.
         """
-        #### TODO
+        # TODO
         # Initialise le joueur avec le score le plus élevé au premier joueur
         joueur_gagnant = self.joueurs[0]
 
@@ -265,28 +263,31 @@ class Partie:
         Returns:
             tuple: Un booléen indiquant si le tour a réussi et un message décrivant le résultat du tour.
         """
+        # TODO
+        # Étape 1: Vérifier la validité des placements
         liste_jetons, liste_positions = self.plateau.consulter_jetons_en_jeu()
+        mots_formes, points = self.plateau.placer_jetons(liste_jetons, liste_positions)
 
-        # Vérifie si la partie est terminée
-        if self.est_terminee():
-            return False, "La partie est terminée."
+        if not mots_formes:  # Si aucun mot formé ou mot invalide
+            self.annuler_deplacements_en_attente()
+            return False, "Placement invalide ou aucun mot formé."
 
-        # Vérifie si le joueur actif peut jouer un tour
-        if not self.joueur_actif.chevalet.est_vide():
-            return False, "Le joueur n'a plus de jetons pour jouer."
+        # Étape 2: Vérifier si tous les mots formés sont valides
+        for mot in mots_formes:
+            if not self.mot_permis(mot):
+                self.annuler_deplacements_en_attente()
+                return False, f"Le mot {mot} n'est pas valide selon le dictionnaire."
 
-        # Le joueur place ses jetons sur le plateau
-        placement_reussi = self.plateau.placer_jetons(self.joueur_actif.chevalet.jetons)
-        if not placement_reussi:
-            return False, "Placement de jetons invalide."
+        # Étape 3: Appliquer les points au score du joueur
+        self.joueur_actif.score += points
+        self.appliquer_deplacements_en_attente()
 
-        # Si le placement est réussi, le score du joueur est mis à jour
-        self.joueur_actif.score += self.plateau.trouver_mots_et_calculer_points
-
-        # Passe au joueur suivant
+        # Étape 4: Passer au joueur suivant
         self.passer_au_joueur_suivant()
 
-        return True, "Tour terminé avec succès."
+        # Étape 5: Vérifier la fin de la partie
+        if self.est_terminee():
+            gagnant = self.determiner_gagnant()
+            return True, f"Partie terminée. Le gagnant est {gagnant.nom} avec un score de {gagnant.score} points."
 
-    def placer_jeton(self, joueur_actif, emplacement_jeton_selectionne_chevalet, param):
-        pass
+        return True, f"Tour terminé avec succès. {points} points ajoutés au score. C'est maintenant au tour de {self.joueur_actif.nom}."

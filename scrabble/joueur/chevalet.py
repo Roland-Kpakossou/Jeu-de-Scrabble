@@ -30,7 +30,7 @@ class Chevalet:
         Returns:
             int: Le nombre d'emplacements vides.
         """
-        #### TODO
+        # TODO
         return self.emplacements.count(None)
 
     def est_plein(self):
@@ -39,7 +39,7 @@ class Chevalet:
         Returns:
             bool: True si le chevalet est plein, False sinon.
         """
-        #### TODO
+        # TODO
         return self.nombre_emplacements_vides() == 0
 
     def emplacement_est_valide(self, index_emplacement):
@@ -51,8 +51,10 @@ class Chevalet:
         Returns:
             bool: True si l'emplacement est valide, False sinon.
         """
-        #### TODO
-        return 0 <= index_emplacement <= self.taille()
+        # TODO
+        if index_emplacement is None:
+            return False
+        return 0 <= index_emplacement < self.taille()
 
     def emplacement_est_vide(self, index_emplacement):
         """Vérifie si un emplacement donné est vide.
@@ -76,14 +78,14 @@ class Chevalet:
         Raises:
             AssertionError: Si l'emplacement spécifié est invalide ou déjà occupé.
         """
+        # TODO
         # Vérifie d'abord si l'emplacement spécifié est valide
-        #### TODO
         if not self.emplacement_est_valide(index_emplacement):
             raise AssertionError("L'emplacement spécifié est invalide.")
 
         # Ensuite, vérifie si l'emplacement est vide
-        if self.emplacement_est_vide(index_emplacement):
-            raise AssertionError("L'emplacement spécifié est vide.")
+        if not self.emplacement_est_vide(index_emplacement):
+            raise AssertionError("L'emplacement spécifié est occupé.")
 
         # Si les vérifications passent, retire le jeton et retourne-le
         jeton = self.emplacements[index_emplacement]
@@ -102,7 +104,10 @@ class Chevalet:
         Raises:
             AssertionError: Si l'emplacement spécifié est invalide ou vide.
         """
-        #### TODO
+        # TODO
+
+        assert self.emplacement_est_valide(index_emplacement), "L'emplacement spécifié est invalide."
+        assert self.emplacements[index_emplacement] is not None, "L'emplacement spécifié est vide."
         jeton = self.emplacements[index_emplacement]
         return jeton
 
@@ -118,7 +123,9 @@ class Chevalet:
         Raises:
             AssertionError: Si l'emplacement spécifié est invalide ou vide.
         """
-        #### TODO
+        # TODO
+        assert self.emplacement_est_valide(index_emplacement), "L'emplacement spécifié est invalide."
+        assert self.emplacements[index_emplacement] is not None, "L'emplacement spécifié est vide."
         jeton = self.obtenir_jeton(index_emplacement)
         self.emplacements[index_emplacement] = None
         return jeton

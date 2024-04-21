@@ -22,7 +22,7 @@ class Jeton:
         Raises:
             AssertionError: Si la lettre n'est pas une lettre majuscule ou si la valeur n'est pas dans l'intervalle autorisé.
         """
-        #### TODO
+        # TODO
         self.lettre = lettre
         self.valeur = valeur
 

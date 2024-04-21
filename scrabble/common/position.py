@@ -31,7 +31,7 @@ class Position:
         Returns:
             list[Position]: Une liste contenant les positions adjacentes.
         """
-        #### TODO
+        # TODO
         return [
             Position(self.ligne, self.colonne + 1),  # Droite
             Position(self.ligne, self.colonne - 1),  # Gauche

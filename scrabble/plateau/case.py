@@ -24,9 +24,7 @@ class Case:
         Raises:
             AssertionError: Si le multiplicateur ou le type est hors des valeurs permises.
         """
-        #### TODO
-        assert multiplicateur in [1, 2, 3], "Le multiplicateur doit être entre 1 et 3 inclusivement."
-        assert type_bonus in [None, 'L', 'M'], "Le type_bonus doit être None, 'L' ou 'M'."
+        # TODO
         self.multiplicateur = multiplicateur
         self.type_bonus = type_bonus
         self.jeton_occupant = None
