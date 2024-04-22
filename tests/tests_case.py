@@ -12,26 +12,21 @@ def tests_initialisation_case_sans_bonus():
     assert case.est_vide(), "La case devrait être initialement vide"
     assert case.jeton_occupant is None, "Le jeton occupant devrait être None à l'initialisation"
 
-    assert False, "Erreur: Compléter tests_initialisation_case_sans_bonus"
 
 
 def tests_initialisation_avec_des_parametres_incorrects():
     # TODO
-    # Test d'initialisation avec un multiplicateur incorrect
     try:
         case = Case(multiplicateur=5)
-    except AssertionError:
-        pass  # On attend une erreur AssertionError
+        assert False, "Le MultiplicateurInvalidException n'a pas été levé"
+    except Case.MultiplicateurInvalidException:
+        pass  # correct, l'exception attendue a été levée
 
-    # Test d'initialisation avec un type de bonus incorrect
     try:
         case = Case(type_bonus="A")
-    except AssertionError:
-        pass  # On attend une erreur AssertionError
-
-    assert (
-        False
-    ), "Erreur: Compléter tests_initialisation_avec_des_parametres_incorrects"
+        assert False, "Le BonusTypeInvalidException n'a pas été levé"
+    except Case.BonusTypeInvalidException:
+        pass  # correct, l'exception attendue a été levée
 
 
 def tests_placement_et_de_retrait_de_jeton():
@@ -51,7 +46,6 @@ def tests_placement_et_de_retrait_de_jeton():
     assert jeton_retire == jeton, "Le jeton retiré devrait être le même que celui placé précédemment"
     assert case.est_vide(), "La case devrait être vide après avoir retiré le jeton"
     assert case.jeton_occupant is None, "Le jeton retiré devrait être None"
-    assert False, "Erreur: Compléter tests_placement_et_de_retrait_de_jeton"
 
 
 def tests_de_la_valeur_du_jeton_sur_une_case_avec_multiplicateur_de_lettre():

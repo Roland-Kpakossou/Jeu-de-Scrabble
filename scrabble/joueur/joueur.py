@@ -52,3 +52,6 @@ class Joueur:
             str: La représentation textuelle du joueur, comprenant son nom, son score et l'état actuel de son chevalet.
         """
         return f"{self.nom}\nScore: {self.score}\n{self.chevalet}"
+
+
+

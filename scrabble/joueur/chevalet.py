@@ -8,6 +8,13 @@ class Chevalet:
         emplacements (list): Liste des emplacements sur le chevalet, pouvant être occupés par des jetons ou vides (None).
     """
 
+    class EmplacementInvalidException(Exception):
+        pass
+
+    class EmplacementOccupeException(Exception):
+        pass
+
+
     def __init__(self, taille=7):
         """Initialise le chevalet avec une taille donnée.
 
@@ -79,18 +86,14 @@ class Chevalet:
             AssertionError: Si l'emplacement spécifié est invalide ou déjà occupé.
         """
         # TODO
-        # Vérifie d'abord si l'emplacement spécifié est valide
+        if index_emplacement is None:
+            index_emplacement = self.emplacements.index(None)
         if not self.emplacement_est_valide(index_emplacement):
-            raise AssertionError("L'emplacement spécifié est invalide.")
-
-        # Ensuite, vérifie si l'emplacement est vide
+            raise Chevalet.EmplacementInvalidException("L'emplacement spécifié est invalide.")
         if not self.emplacement_est_vide(index_emplacement):
-            raise AssertionError("L'emplacement spécifié est occupé.")
+            raise Chevalet.EmplacementOccupeException("L'emplacement spécifié est déjà occupé.")
 
-        # Si les vérifications passent, retire le jeton et retourne-le
-        jeton = self.emplacements[index_emplacement]
-        self.emplacements[index_emplacement] = None
-        return jeton
+        self.emplacements[index_emplacement] = jeton
 
     def obtenir_jeton(self, index_emplacement):
         """Obtient le jeton d'un emplacement spécifique.
@@ -105,11 +108,12 @@ class Chevalet:
             AssertionError: Si l'emplacement spécifié est invalide ou vide.
         """
         # TODO
+        if not self.emplacement_est_valide(index_emplacement):
+            raise Chevalet.EmplacementInvalidException("L'emplacement spécifié est invalide.")
+        if self.emplacement_est_vide(index_emplacement):
+            raise Chevalet.EmplacementOccupeException("L'emplacement spécifié est vide.")
 
-        assert self.emplacement_est_valide(index_emplacement), "L'emplacement spécifié est invalide."
-        assert self.emplacements[index_emplacement] is not None, "L'emplacement spécifié est vide."
-        jeton = self.emplacements[index_emplacement]
-        return jeton
+        return self.emplacements[index_emplacement]
 
     def retirer_jeton(self, index_emplacement):
         """Retire et renvoie le jeton d'un emplacement spécifique.
@@ -124,9 +128,12 @@ class Chevalet:
             AssertionError: Si l'emplacement spécifié est invalide ou vide.
         """
         # TODO
-        assert self.emplacement_est_valide(index_emplacement), "L'emplacement spécifié est invalide."
-        assert self.emplacements[index_emplacement] is not None, "L'emplacement spécifié est vide."
-        jeton = self.obtenir_jeton(index_emplacement)
+        if not self.emplacement_est_valide(index_emplacement):
+            raise Chevalet.EmplacementInvalidException("L'emplacement spécifié est invalide.")
+        if self.emplacement_est_vide(index_emplacement):
+            raise Chevalet.EmplacementOccupeException("L'emplacement spécifié est vide.")
+
+        jeton = self.emplacements[index_emplacement]
         self.emplacements[index_emplacement] = None
         return jeton
 

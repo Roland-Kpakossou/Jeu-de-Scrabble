@@ -75,3 +75,4 @@ class Position:
             str: La représentation textuelle de la position sous la forme '(ligne, colonne)'.
         """
         return "({}, {})".format(self.ligne, self.colonne)
+

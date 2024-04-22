@@ -13,6 +13,14 @@ class Case:
         jeton_occupant (Jeton, optional): Le jeton actuellement placé sur cette case, ou None si la case est vide.
     """
 
+    class MultiplicateurInvalidException(Exception):
+        def __init__(self, message="Le multiplicateur doit être entre 1 et 3."):
+            super().__init__(message)
+
+    class BonusTypeInvalidException(Exception):
+        def __init__(self, message="Le type de bonus doit être 'L', 'M', ou None."):
+            super().__init__(message)
+
     def __init__(self, multiplicateur=1, type_bonus=None):
         """Initialise une case avec un multiplicateur et un type spécifiés.
 
@@ -25,6 +33,10 @@ class Case:
             AssertionError: Si le multiplicateur ou le type est hors des valeurs permises.
         """
         # TODO
+        if not 1 <= multiplicateur <= 3:
+            raise Case.MultiplicateurInvalidException()
+        if type_bonus not in ('L', 'M', None):
+            raise Case.BonusTypeInvalidException()
         self.multiplicateur = multiplicateur
         self.type_bonus = type_bonus
         self.jeton_occupant = None
@@ -146,3 +158,4 @@ class Case:
         """
         s = "" if self.est_vide() else str(self.jeton_occupant)
         return "\x1b[0;30;{}m{:^4s}\x1b[0m".format(self.code_couleur_ansi(), s)
+
