@@ -116,6 +116,8 @@ class FenetrePartie(Tk):
         self.grid_rowconfigure(0, weight=1)
 
         # TODO
+        self.actualiser_statut_jeu()
+        self.actualiser_chevalet()
 
     def actualiser_statut_jeu(self):
         """
@@ -241,23 +243,21 @@ class FenetrePartie(Tk):
             event (tkinter.Event): L'évènement ayant causé l'appel de la méthode.
         """
         # TODO
-        x = event.x
-        y = event.y
-        position_plateau = self.canvas_plateau.obtenir_position_case_clic(x, y)
-        if position_plateau:
-            ligne, colonne = position_plateau.ligne, position_plateau.colonne
-            success, message = self.partie.placer_jeton(
-                self.partie.joueur_actif,
-                self.emplacement_jeton_selectionne_chevalet,
-                Position(ligne, colonne),
-            )
-            if success:
-                messagebox.showinfo("Succès!", message, parent=self)
-                self.confirmer_tous_les_deplacements_effectues()
-                self.passer_au_joueur_suivant()
+        x, y = event.x, event.y
+        ligne = y // self.canvas_plateau.n_pixels_par_case
+        colonne = x // self.canvas_plateau.n_pixels_par_case
+        position_plateau = Position(ligne, colonne)
+
+        # Vérifier si une position du jeton a été sélectionnée dans le chevalet avant de tenter de placer le jeton
+        if self.emplacement_jeton_selectionne_chevalet is not None:
+            jeton = self.partie.joueur_actif.chevalet.obtenir_jeton(self.emplacement_jeton_selectionne_chevalet)
+            if jeton and self.partie.plateau.ajouter_jeton(jeton, position_plateau):
+                self.canvas_plateau.actualiser()
+
             else:
-                messagebox.showerror("Erreur!", message, parent=self)
-                self.annuler_tous_les_deplacements_en_attente()
+                messagebox.showerror("Erreur!", "Impossible de placer le jeton à cet emplacement.", parent=self)
+        else:
+            messagebox.showinfo("Information", "Veuillez sélectionner un jeton de votre chevalet.", parent=self)
 
     def passer_au_joueur_suivant(self):
         """

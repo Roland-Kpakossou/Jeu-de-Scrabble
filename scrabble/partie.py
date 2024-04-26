@@ -260,25 +260,24 @@ class Partie:
             tuple: Un booléen indiquant si le tour a réussi et un message décrivant le résultat du tour.
         """
         # TODO
-        class PositionInvalideException(Exception):
-            pass
+        # Vérifier si les déplacements proposés sont valides
+        jetons_en_jeu, positions_en_jeu = self.plateau.consulter_jetons_en_jeu()
+        if not self.plateau.valider_positions_avant_ajout(positions_en_jeu):
+            return (False, "Les jetons ne sont pas placés correctement.")
 
-        liste_jetons, liste_positions = self.plateau.consulter_jetons_en_jeu()
-        try:
-                mots_formes, points = self.plateau.placer_jetons(liste_jetons, liste_positions)
-        except PositionInvalideException:
-            raise
+        # Collecter tous les mots formés par les nouveaux jetons
+        mots_formes, score_total = self.plateau.trouver_mots_et_calculer_points(positions_en_jeu)
 
-        if not mots_formes:
-            self.annuler_deplacements_en_attente()
-            raise PositionInvalideException("Placement invalide ou aucun mot formé.")
+        # Vérifier que tous les mots formés sont valides
+        mots_invalides = [mot for mot in mots_formes if not self.mot_permis(mot)]
+        if mots_invalides:
+            return (False, f"Les mots suivants ne sont pas valides: {', '.join(mots_invalides)}")
 
-        try:
-            self.appliquer_deplacements_en_attente()
-        except PositionInvalideException as e:
-            self.annuler_deplacements_en_attente()
-            return False, str(e)
+        # Appliquer le score et finaliser les déplacements
+        self.joueur_actif.score += score_total
+        self.appliquer_deplacements_en_attente()
 
-            # Valider les mots et appliquer les scores
+        # Passer au joueur suivant
+        self.passer_au_joueur_suivant()
 
-        return True,"Tour valide, points ajoutés."
+        return (True, f"Tour réussi, {score_total} points gagnés!")

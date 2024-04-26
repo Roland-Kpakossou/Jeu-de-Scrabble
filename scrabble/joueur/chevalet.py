@@ -8,10 +8,10 @@ class Chevalet:
         emplacements (list): Liste des emplacements sur le chevalet, pouvant être occupés par des jetons ou vides (None).
     """
 
-    class EmplacementInvalidException(Exception):
+    class EmplacementInvalidException(AssertionError):
         pass
 
-    class EmplacementOccupeException(Exception):
+    class EmplacementOccupeException(AssertionError):
         pass
 
 
@@ -87,11 +87,17 @@ class Chevalet:
         """
         # TODO
         if index_emplacement is None:
-            index_emplacement = self.emplacements.index(None)
-        if not self.emplacement_est_valide(index_emplacement):
-            raise Chevalet.EmplacementInvalidException("L'emplacement spécifié est invalide.")
-        if not self.emplacement_est_vide(index_emplacement):
-            raise Chevalet.EmplacementOccupeException("L'emplacement spécifié est déjà occupé.")
+            try:
+                index_emplacement = self.emplacements.index(None)  # Trouver le premier emplacement vide.
+            except ValueError:
+                raise Chevalet.EmplacementOccupeException("Aucun emplacement vide disponible.")
+        else:
+            if index_emplacement < 0 or index_emplacement >= len(self.emplacements):
+                raise Chevalet.EmplacementInvalidException("L'emplacement spécifié est invalide.")
+            if self.emplacements[index_emplacement] is not None:
+                raise Chevalet.EmplacementOccupeException("L'emplacement spécifié est déjà occupé.")
+
+        self.emplacements[index_emplacement] = jeton  # Place le jeton dans le chevalet.
 
         self.emplacements[index_emplacement] = jeton
 
