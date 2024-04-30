@@ -1,5 +1,6 @@
 from scrabble.joueur.chevalet import Chevalet
 
+
 class Joueur:
     """Représente un joueur dans une partie de Scrabble, gérant son nom, son score et son chevalet de jetons.
 

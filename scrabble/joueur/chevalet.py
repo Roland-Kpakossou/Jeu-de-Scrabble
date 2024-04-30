@@ -19,7 +19,6 @@ class Chevalet:
         """Exception levée si l'emplacement spécifié est vide."""
         pass
 
-
     def __init__(self, taille=7):
         """Initialise le chevalet avec une taille donnée.
 
@@ -139,6 +138,7 @@ class Chevalet:
         jeton = self.emplacements[index_emplacement]
         self.emplacements[index_emplacement] = None
         return jeton
+
     def melanger_jetons(self):
         """Mélange les jetons présents sur le chevalet, changeant leur ordre de manière aléatoire."""
         random.shuffle(self.emplacements)

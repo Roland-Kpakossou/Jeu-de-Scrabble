@@ -32,6 +32,7 @@ class Jeton:
             raise Jeton.InvalidValueError(valeur)
         self.lettre = lettre
         self.valeur = valeur
+
     def __repr__(self):
         """Méthode spéciale indiquant à Python comment représenter une instance de Jeton par une chaîne de
         caractères. Notamment utilisé pour imprimer un jeton à l'écran.

@@ -148,17 +148,7 @@ class Partie:
         Note: Si plusieurs sont à égalité, on en retourne un seul parmi ceux-ci.
         """
         # TODO
-        # Initialise le joueur avec le score le plus élevé au premier joueur
-        joueur_gagnant = self.joueurs[0]
-
-        # Parcourt tous les joueurs pour trouver celui avec le score le plus élevé
-        for joueur in self.joueurs:
-            # Si le score du joueur actuel est plus élevé que celui du joueur gagnant actuel
-            if joueur.score > joueur_gagnant.score:
-                # Met à jour le joueur gagnant
-                joueur_gagnant = joueur
-
-        # Retourne le joueur avec le score le plus élevé
+        joueur_gagnant = max(self.joueurs, key=lambda joueur: joueur.score)
         return joueur_gagnant
 
     def est_terminee(self):
@@ -260,25 +250,11 @@ class Partie:
             tuple: Un booléen indiquant si le tour a réussi et un message décrivant le résultat du tour.
         """
         # TODO
-        # Vérifier si des jetons ont été placés sur le plateau
         if not self.plateau.jetons_en_jeu:
             return False, "Aucun jeton n'a été placé sur le plateau."
 
-        # Vérifier la validité des mots formés sur le plateau
+            # Vérifier la validité des mots formés sur le plateau
         mots_formes = self.plateau.mots_formes()
         for mot in mots_formes:
             if not self.mot_permis(mot):
                 return False, f"Le mot '{mot}' n'est pas valide."
-
-        # Calculer le score du tour en sommant les valeurs des mots formés
-        score_tour = sum(self.plateau.valeur_mot(mot) for mot in mots_formes)
-        self.joueur_actif.ajouter_score(score_tour)
-
-        # Réinitialiser les chevalets des joueurs
-        for joueur in self.joueurs:
-            joueur.reinitialiser_chevalet(self.jetons_libres)
-
-        # Passer au joueur suivant
-        self.passer_au_joueur_suivant()
-
-        return True, f"Le tour a été joué avec succès. Score du tour : {score_tour}."
