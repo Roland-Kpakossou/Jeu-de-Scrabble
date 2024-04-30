@@ -10,8 +10,6 @@ class Jeton:
         def __init__(self, valeur):
             message = f"La valeur '{valeur}' doit être un entier entre 0 et 20 inclusivement."
             super().__init__(message)
-
-
     """Représente un jeton de Scrabble, incluant une lettre et sa valeur en points.
     Attributes:
         lettre (str): La lettre inscrite sur le jeton. Doit être une lettre majuscule de l'alphabet français.

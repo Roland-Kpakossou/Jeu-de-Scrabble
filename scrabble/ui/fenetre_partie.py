@@ -116,8 +116,7 @@ class FenetrePartie(Tk):
         self.grid_rowconfigure(0, weight=1)
 
         # TODO
-        self.actualiser_statut_jeu()
-        self.actualiser_chevalet()
+        self.passer_au_joueur_suivant()
 
     def actualiser_statut_jeu(self):
         """
@@ -243,6 +242,10 @@ class FenetrePartie(Tk):
             event (tkinter.Event): L'évènement ayant causé l'appel de la méthode.
         """
         # TODO
+        if event.keysym == "Escape":
+            self.annuler_tous_les_deplacements_en_attente()
+            return
+
         x, y = event.x, event.y
         ligne = y // self.canvas_plateau.n_pixels_par_case
         colonne = x // self.canvas_plateau.n_pixels_par_case
@@ -253,12 +256,15 @@ class FenetrePartie(Tk):
             jeton = self.partie.joueur_actif.chevalet.obtenir_jeton(self.emplacement_jeton_selectionne_chevalet)
             if jeton and self.partie.plateau.ajouter_jeton(jeton, position_plateau):
                 self.canvas_plateau.actualiser()
-
+                # Supprimer le jeton du chevalet une fois qu'il a été placé sur le plateau
+                self.partie.joueur_actif.chevalet.retirer_jeton(self.emplacement_jeton_selectionne_chevalet)
+                self.emplacement_jeton_selectionne_chevalet = None
+                # Actualiser l'affichage du chevalet
+                self.actualiser_chevalet()
             else:
                 messagebox.showerror("Erreur!", "Impossible de placer le jeton à cet emplacement.", parent=self)
         else:
             messagebox.showinfo("Information", "Veuillez sélectionner un jeton de votre chevalet.", parent=self)
-
     def passer_au_joueur_suivant(self):
         """
         Passe le contrôle au joueur suivant, met à jour l'affichage du joueur actif et du chevalet.

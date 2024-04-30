@@ -7,11 +7,16 @@ class Chevalet:
     Attributes:
         emplacements (list): Liste des emplacements sur le chevalet, pouvant être occupés par des jetons ou vides (None).
     """
-
-    class EmplacementInvalidException(AssertionError):
+    class EmplacementInvalidException(Exception):
+        """Exception levée si l'emplacement spécifié est invalide."""
         pass
 
-    class EmplacementOccupeException(AssertionError):
+    class EmplacementOccupeException(Exception):
+        """Exception levée si l'emplacement spécifié est déjà occupé."""
+        pass
+
+    class EmplacementVideException(Exception):
+        """Exception levée si l'emplacement spécifié est vide."""
         pass
 
 
@@ -59,9 +64,7 @@ class Chevalet:
             bool: True si l'emplacement est valide, False sinon.
         """
         # TODO
-        if index_emplacement is None:
-            return False
-        return 0 <= index_emplacement < self.taille()
+        return index_emplacement is not None and 0 <= index_emplacement < self.taille()
 
     def emplacement_est_vide(self, index_emplacement):
         """Vérifie si un emplacement donné est vide.
@@ -87,18 +90,14 @@ class Chevalet:
         """
         # TODO
         if index_emplacement is None:
-            try:
-                index_emplacement = self.emplacements.index(None)  # Trouver le premier emplacement vide.
-            except ValueError:
-                raise Chevalet.EmplacementOccupeException("Aucun emplacement vide disponible.")
+            index_emplacement = self.emplacements.index(None) if None in self.emplacements else -1
+            if index_emplacement == -1:
+                raise self.EmplacementOccupeException("Aucun emplacement vide disponible.")
         else:
-            if index_emplacement < 0 or index_emplacement >= len(self.emplacements):
-                raise Chevalet.EmplacementInvalidException("L'emplacement spécifié est invalide.")
-            if self.emplacements[index_emplacement] is not None:
-                raise Chevalet.EmplacementOccupeException("L'emplacement spécifié est déjà occupé.")
-
-        self.emplacements[index_emplacement] = jeton  # Place le jeton dans le chevalet.
-
+            if not self.emplacement_est_valide(index_emplacement):
+                raise self.EmplacementInvalidException("L'emplacement spécifié est invalide.")
+            if not self.emplacement_est_vide(index_emplacement):
+                raise self.EmplacementOccupeException("L'emplacement spécifié est déjà occupé.")
         self.emplacements[index_emplacement] = jeton
 
     def obtenir_jeton(self, index_emplacement):
@@ -115,10 +114,9 @@ class Chevalet:
         """
         # TODO
         if not self.emplacement_est_valide(index_emplacement):
-            raise Chevalet.EmplacementInvalidException("L'emplacement spécifié est invalide.")
+            raise self.EmplacementInvalidException("L'emplacement spécifié est invalide.")
         if self.emplacement_est_vide(index_emplacement):
-            raise Chevalet.EmplacementOccupeException("L'emplacement spécifié est vide.")
-
+            raise self.EmplacementVideException("L'emplacement spécifié est vide.")
         return self.emplacements[index_emplacement]
 
     def retirer_jeton(self, index_emplacement):
@@ -135,14 +133,12 @@ class Chevalet:
         """
         # TODO
         if not self.emplacement_est_valide(index_emplacement):
-            raise Chevalet.EmplacementInvalidException("L'emplacement spécifié est invalide.")
+            raise self.EmplacementInvalidException("L'emplacement spécifié est invalide.")
         if self.emplacement_est_vide(index_emplacement):
-            raise Chevalet.EmplacementOccupeException("L'emplacement spécifié est vide.")
-
+            raise self.EmplacementVideException("L'emplacement spécifié est vide.")
         jeton = self.emplacements[index_emplacement]
         self.emplacements[index_emplacement] = None
         return jeton
-
     def melanger_jetons(self):
         """Mélange les jetons présents sur le chevalet, changeant leur ordre de manière aléatoire."""
         random.shuffle(self.emplacements)

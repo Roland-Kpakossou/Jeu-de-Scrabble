@@ -161,6 +161,15 @@ class Plateau:
             return jeton_retire
         return None
 
+    def obtenir_positions_jetons_en_jeu(self):
+        """
+        Retourne les positions des jetons actuellement en jeu sur le plateau.
+
+        Returns:
+            dict: Un dictionnaire contenant les positions des jetons en jeu.
+        """
+        return self.positions_en_jeu.copy()
+
     def cases_adjacentes_occupees(self, position):
         """
         Étant donné une position, cette méthode permet de voir si au moins l'une de ses positions voisines est occupée.
@@ -293,6 +302,17 @@ class Plateau:
         self.positions_en_jeu = []
 
         return jetons, positions
+
+    def mots_formes(self):
+        """
+        Retourne la liste des mots formés sur le plateau.
+
+        Returns:
+            list: Une liste contenant les mots formés.
+        """
+        mots = []
+        # Logique pour obtenir les mots formés
+        return mots
 
     def placer_jetons(self, jetons_a_placer, positions):
         """Place plusieurs jetons sur le plateau à des positions spécifiées et calcule les scores

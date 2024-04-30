@@ -260,24 +260,25 @@ class Partie:
             tuple: Un booléen indiquant si le tour a réussi et un message décrivant le résultat du tour.
         """
         # TODO
-        # Vérifier si les déplacements proposés sont valides
-        jetons_en_jeu, positions_en_jeu = self.plateau.consulter_jetons_en_jeu()
-        if not self.plateau.valider_positions_avant_ajout(positions_en_jeu):
-            return (False, "Les jetons ne sont pas placés correctement.")
+        # Vérifier si des jetons ont été placés sur le plateau
+        if not self.plateau.jetons_en_jeu:
+            return False, "Aucun jeton n'a été placé sur le plateau."
 
-        # Collecter tous les mots formés par les nouveaux jetons
-        mots_formes, score_total = self.plateau.trouver_mots_et_calculer_points(positions_en_jeu)
+        # Vérifier la validité des mots formés sur le plateau
+        mots_formes = self.plateau.mots_formes()
+        for mot in mots_formes:
+            if not self.mot_permis(mot):
+                return False, f"Le mot '{mot}' n'est pas valide."
 
-        # Vérifier que tous les mots formés sont valides
-        mots_invalides = [mot for mot in mots_formes if not self.mot_permis(mot)]
-        if mots_invalides:
-            return (False, f"Les mots suivants ne sont pas valides: {', '.join(mots_invalides)}")
+        # Calculer le score du tour en sommant les valeurs des mots formés
+        score_tour = sum(self.plateau.valeur_mot(mot) for mot in mots_formes)
+        self.joueur_actif.ajouter_score(score_tour)
 
-        # Appliquer le score et finaliser les déplacements
-        self.joueur_actif.score += score_total
-        self.appliquer_deplacements_en_attente()
+        # Réinitialiser les chevalets des joueurs
+        for joueur in self.joueurs:
+            joueur.reinitialiser_chevalet(self.jetons_libres)
 
         # Passer au joueur suivant
         self.passer_au_joueur_suivant()
 
-        return (True, f"Tour réussi, {score_total} points gagnés!")
+        return True, f"Le tour a été joué avec succès. Score du tour : {score_tour}."

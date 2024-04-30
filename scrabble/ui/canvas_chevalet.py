@@ -32,3 +32,4 @@ class CanvasChevalet(Canvas):
 
         # Initialisation du canvas avec la taille calculée et une couleur de fond choisie pour ressembler à du bois.
         super().__init__(parent, width=largeur, height=hauteur, bg="#645b4b")
+
