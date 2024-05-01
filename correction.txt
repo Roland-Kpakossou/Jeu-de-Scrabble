@@ -1,15 +1,15 @@
 Numéro d'équipe :
-Lien vers le dépôt GitHub PRIVÉ de votre TP :
+Lien vers le dépôt GitHub PRIVÉ de votre TP : https://github.com/Roland-Kpakossou/Ift-1004-h24-tp3.git
 
 Étudiant 1 :
-    - Nom complet :
-    - Numéro de dossier (NI) :
+    - Nom complet : Roland Kpakossou Koko
+    - Numéro de dossier (NI) : 537122370
     - Estimation du temps de réalisation :
 
 Étudiant 2:
     - Nom complet: Emmanuella iris andréa Lehe
-    - Numéro de dossier (NI):
-    - Estimation du temps de réalisation: 3 jours
+    - Numéro de dossier (NI): 537252597
+    - Estimation du temps de réalisation: 5 jours
 
 
 Étape 1: Méthodes et tests à compléter (__/55)

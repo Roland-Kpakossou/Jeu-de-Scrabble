@@ -250,11 +250,35 @@ class Partie:
             tuple: Un booléen indiquant si le tour a réussi et un message décrivant le résultat du tour.
         """
         # TODO
-        if not self.plateau.jetons_en_jeu:
+
+        # Récupérer les jetons et les positions des jetons sur le plateau
+        liste_jetons, liste_positions = self.plateau.consulter_jetons_en_jeu()
+
+        # Vérifier si des jetons ont été placés sur le plateau
+        if len(liste_positions) == 0:
+            # S'il n'y a aucun jeton placé, annuler tous les déplacements en attente et retourner un message d'erreur
+            self.annuler_deplacements_en_attente()
             return False, "Aucun jeton n'a été placé sur le plateau."
 
-            # Vérifier la validité des mots formés sur le plateau
-        mots_formes = self.plateau.mots_formes()
-        for mot in mots_formes:
-            if not self.mot_permis(mot):
-                return False, f"Le mot '{mot}' n'est pas valide."
+        # Placer les jetons sur le plateau et vérifier la validité des mots formés
+        try:
+            mots_formes, score_tour = self.placer_jetons(liste_jetons, liste_positions)
+            # Vérifier si les mots formés sont valides
+            if any(not self.mot_permis(mot) for mot in mots_formes):
+                # Si un des mots formés n'est pas valide, annuler les placements et lever une exception
+                for i, position in enumerate(liste_positions):
+                    self.plateau.retirer_jeton(position)
+                    self.joueur_actif.chevalet.ajouter_jeton(liste_jetons[i])
+                raise ValueError("Un ou plusieurs mots formés ne sont pas valides.")
+            else:
+                # Si tous les mots sont valides, ajouter le score au joueur actif et passer au joueur suivant
+                self.joueur_actif.ajouter_score(score_tour)
+                self.passer_au_joueur_suivant()
+                return True, f"Le tour a été joué avec succès. Score du tour : {score_tour}."
+        except AssertionError:
+            # Si une assertion est levée, cela signifie que le nombre de jetons ne correspond pas au nombre de positions
+            # ou que les positions sont invalides
+            return False, "Erreur : nombre de jetons à placer différent du nombre de positions ou positions invalides."
+        except ValueError as e:
+            # Si une exception de valeur est levée, cela signifie qu'un ou plusieurs mots formés ne sont pas valides
+            return False, str(e)

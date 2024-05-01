@@ -303,8 +303,7 @@ class Plateau:
 
         return jetons, positions
 
-    @staticmethod
-    def mots_formes():
+    def mots_formes(self):
         """
         Retourne la liste des mots formés sur le plateau.
 

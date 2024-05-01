@@ -265,6 +265,7 @@ class FenetrePartie(Tk):
                 messagebox.showerror("Erreur!", "Impossible de placer le jeton à cet emplacement.", parent=self)
         else:
             messagebox.showinfo("Information", "Veuillez sélectionner un jeton de votre chevalet.", parent=self)
+
     def passer_au_joueur_suivant(self):
         """
         Passe le contrôle au joueur suivant, met à jour l'affichage du joueur actif et du chevalet.
